@@ -23,7 +23,8 @@
 This sample illustrates a simple LLVM IR -> PTX compiler implemented using
 libNVVM. All command-line options are passed along to libNVVM. Arguments that
 start with '-' are assumed to be options and are passed along accordingly.
-Otherwise, options are treated as file names and are read as IR input(s).
+Otherwise, options are treated as file names and are read as IR input(s). All
+inputs will be linked together into a final PTX module.
 """
 
 import sys
@@ -35,16 +36,32 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 try:
+    # Create program object
     p = Program()
     options = []
+
+    # Parse all options
     for a in sys.argv[1:]:
         if a.startswith('-'):
+            # Treat as compiler option
             options.append(a)
         else:
+            # Treat as compiler input
             with open(a, 'rb') as f:
                 p.add_module(f.read())
+
+    # Verify the input
+    p.verify()
+
+    # Run the compile
     ptx = p.compile(options)
+
+    # Dump the output to stdout
     print(ptx)
+
+    sys.exit(0)
+
 except ProgramException as e:
+    # An error occurred, dump it to stdout
     print('ERROR:\n%s\n' % repr(e))
 
