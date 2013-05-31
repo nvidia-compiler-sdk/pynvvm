@@ -78,12 +78,18 @@ class NVVMInterface(object):
         if system() == 'Windows':
             from ctypes import windll
             loader = windll
+            def_lib_name = 'nvvm.dll'
+        elif system() == 'Darwin':
+            from ctypes import cdll
+            loader = cdll
+            def_lib_name = 'libnvvm.dylib'
         else:
             from ctypes import cdll
             loader = cdll
+            def_lib_name = 'libnvvm.so'
 
         if len(lib_path) == 0:
-            name = 'libnvvm.so'
+            name = def_lib_name
         else:
             name = lib_path
 
