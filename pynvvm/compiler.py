@@ -42,8 +42,8 @@ class Program(object):
     This is a high-level wrapper around the libNVVM program API.
     """
 
-    def __init__(self):
-        self._interface = NVVMInterface()
+    def __init__(self, lib_name=''):
+        self._interface = NVVMInterface(lib_name)
         self._program = self._interface.nvvmCreateProgram()
 
     def __del__(self):
