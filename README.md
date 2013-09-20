@@ -1,7 +1,5 @@
 
-===================================
 pynvvm - Python Bindings to libNVVM
-===================================
 
 
 Introduction
@@ -21,13 +19,16 @@ installed with ``pip`` or ``easy_install``.
 
     $ pip install pynvvm
 
+Note, however, that the package does require the libNVVM binary to be present
+at runtime. See below for instructions on how to set the search path.
+
 
 Using pynvvm
 ============
 
-There are two primary interfaces with pynvvm; a low-level interface exists
-which provides users with direct access to the libNVVM API, and a high-level
-interface provides a Pythonic API for libNVVM.
+There are two primary interfaces with pynvvm; a low-level interface which
+provides users with direct access to the libNVVM API, and a high-level
+interface which provides a Pythonic API for the compiler routines in libNVVM.
 
 
 Low-Level Interface
@@ -51,6 +52,9 @@ overwrites the system search path.  For example, on Linux:
 
     inter = NVVMInterface('/usr/local/cuda-5.5/nvvm/lib64/libnvvm.so')
 
+**NOTE**: It is important that the specified binary match the architecture of
+the Python interpreter under which your program is running.
+
 Once an interface object is created, it provides access to all of the libNVVM
 API functions as regular Python functions. However, instead of returning a
 libNVVM status code, each function returns either a string (for output
@@ -66,7 +70,7 @@ Full Example:
 
     from pynvvm.interface import NVVMInterface, NVVMException
 
-    module = ...
+    module = ... ## Populate NVVM IR or bitcode
 
     inter = NVVMInterface()
     prog = inter.nvvmCreateProgram()
@@ -83,4 +87,22 @@ High-Level Interface
 --------------------
 
 For clients wanting a higher-level interface to libNVVM, the ``Program`` class
-in ``pynvvm.compiler`` provides such an interface.
+in ``pynvvm.compiler`` provides such an interface. The usage is similar to
+that of the ``NVVMInterface`` class, but the API is more Pythonic and you do
+not need to worry about maintaining NVVM objects.
+
+
+    from pynvvm.compiler import Program, ProgramException
+
+    module = ... ## Populate NVVM IR or bitcode
+
+    try:
+        prog = Program()
+        prog.add_module(module, 'mymodule')
+        ptx = prog.compile(['-ftz=1'])
+    except ProgramException as e:
+        print('Error: %s' % repr(e))
+
+As with ``NVVMInterface``, the ``Program`` constructor accepts an optional
+path to the libNVVM binary.
+
