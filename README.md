@@ -106,3 +106,5 @@ not need to worry about maintaining NVVM objects.
 As with ``NVVMInterface``, the ``Program`` constructor accepts an optional
 path to the libNVVM binary.
 
+Please see ``samples/ptxgen.py`` for a complete example of an NVVM IR -> PTX
+compiler using the higher-level interface.

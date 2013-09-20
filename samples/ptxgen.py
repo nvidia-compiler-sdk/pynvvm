@@ -32,7 +32,7 @@ from pynvvm.compiler import Program, ProgramException
 
 
 if len(sys.argv) < 2:
-    print('Usage: %s ir-file-1 [ir-file-2 [ir-file-3 ...]]' % sys.argv[0])
+    print('Usage: %s [options] ir-file-1 [ir-file-2 [ir-file-3 ...]]' % sys.argv[0])
     sys.exit(1)
 
 try:
