@@ -28,6 +28,7 @@ from ctypes import (
     create_string_buffer,
     c_char_p,
     c_size_t,
+    sizeof,
 )
 from platform import system
 
@@ -78,7 +79,10 @@ class NVVMInterface(object):
         if system() == 'Windows':
             from ctypes import windll
             loader = windll
-            def_lib_name = 'nvvm.dll'
+            if sizeof(c_void_p) == 8:
+                def_lib_name = 'nvvm64_20_0.dll'
+            else:
+                def_lib_name = 'nvvm32_20_0.dll'
         elif system() == 'Darwin':
             from ctypes import cdll
             loader = cdll
