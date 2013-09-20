@@ -47,7 +47,8 @@ class Program(object):
         self._program = self._interface.nvvmCreateProgram()
 
     def __del__(self):
-        self._interface.nvvmDestroyProgram(self._program)
+        if hasattr(self, '_interface'):
+            self._interface.nvvmDestroyProgram(self._program)
 
     def add_module(self, buf, name='<unnamed>'):
         """
