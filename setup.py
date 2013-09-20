@@ -30,5 +30,5 @@ setup(
     url='http://pypi.python.org/pypi/pynvvm/',
     license='LICENSE.txt',
     description='Python bindings to libNVVM.',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
 )
