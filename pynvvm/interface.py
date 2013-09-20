@@ -29,6 +29,7 @@ from ctypes import (
     c_char_p,
     c_size_t,
     sizeof,
+    cdll,
 )
 from platform import system
 
@@ -77,19 +78,13 @@ class NVVMInterface(object):
         lib_path.
         """
         if system() == 'Windows':
-            from ctypes import windll
-            loader = windll
             if sizeof(c_void_p) == 8:
                 def_lib_name = 'nvvm64_20_0.dll'
             else:
                 def_lib_name = 'nvvm32_20_0.dll'
         elif system() == 'Darwin':
-            from ctypes import cdll
-            loader = cdll
             def_lib_name = 'libnvvm.dylib'
         else:
-            from ctypes import cdll
-            loader = cdll
             def_lib_name = 'libnvvm.so'
 
         if len(lib_path) == 0:
@@ -97,7 +92,7 @@ class NVVMInterface(object):
         else:
             name = lib_path
 
-        self._lib = loader.LoadLibrary(name)
+        self._lib = cdll.LoadLibrary(name)
 
         self._lib.nvvmCreateProgram.argtypes = [ POINTER(c_void_p) ]
         self._lib.nvvmCreateProgram.restype = c_int
