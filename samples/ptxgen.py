@@ -25,6 +25,12 @@ libNVVM. All command-line options are passed along to libNVVM. Arguments that
 start with '-' are assumed to be options and are passed along accordingly.
 Otherwise, options are treated as file names and are read as IR input(s). All
 inputs will be linked together into a final PTX module.
+
+NOTE: If you get errors about not being able to load libnvvm, please make sure
+your [DY]LD_LIBRARY_PATH/PATH environment variable points to the libnvvm binary
+in your CUDA installation, e.g.
+
+  $ export LD_LIBRARY_PATH=/usr/local/cuda-5.5/nvvm/lib64
 """
 
 import sys
