@@ -30,7 +30,7 @@ setup(
     url='https://github.com/nvidia-compiler-sdk/pynvvm/',
     license='MIT',
     description='Python bindings to libNVVM.',
-    long_description=open('README.md').read(),
+    long_description=open('README').read(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
