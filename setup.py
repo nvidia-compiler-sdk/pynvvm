@@ -23,12 +23,25 @@ from setuptools import setup
 
 setup(
     name='pynvvm',
-    version='1.0-dev',
+    version='1.0',
     author='Justin Holewinski',
     author_email='jholewinski@nvidia.com',
     packages=['pynvvm'],
-    url='http://pypi.python.org/pypi/pynvvm/',
-    license='LICENSE.txt',
+    url='https://github.com/nvidia-compiler-sdk/pynvvm/',
+    license='MIT',
     description='Python bindings to libNVVM.',
     long_description=open('README.md').read(),
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Intended Audience :: Science/Research',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Compilers',
+        'Topic :: Software Development :: Libraries',
+    ],
 )
