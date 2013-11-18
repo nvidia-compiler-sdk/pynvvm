@@ -23,7 +23,7 @@ from setuptools import setup
 
 setup(
     name='pynvvm',
-    version='1.0',
+    version='1.0.1',
     author='Justin Holewinski',
     author_email='jholewinski@nvidia.com',
     packages=['pynvvm'],
